@@ -120,7 +120,7 @@ def apply_global_css():
     """, unsafe_allow_html=True)
 
 # Apply custom global CSS (after mode init)
-apply_theme(mode)
+apply_theme(st.session_state["mode"])
 apply_global_css()
 
 # Sidebar Content
