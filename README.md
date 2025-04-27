@@ -46,19 +46,7 @@
 
 
 
-##  Folder Structure
 
-```bash
-├── app.py
-├── model.pkl
-├── requirements.txt
-├── README.md
-└── images/
-    ├── light_screenshot.png
-    └── dark_screenshot.png
-```
-
----
 
 ## Author
 
