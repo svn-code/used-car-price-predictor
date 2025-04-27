@@ -30,7 +30,7 @@ def apply_global_css():
     light_background = "#F5F5F5"
     dark_background = "#1E1E1E"
     light_text = "#333333"
-    dark_text = "#FFFF00"
+    dark_text = "#00FFFF"
     light_title = "#FF9933"
     dark_title = "#FF5733"
     light_headings = "#222222"
