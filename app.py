@@ -21,22 +21,25 @@ if "mode" not in st.session_state:
 # Inject custom CSS for styling sidebar
 st.markdown("""
     <style>
-    /*"Theme Settings" */
-    section[data-testid="stSidebar"] h1 {
+    /* Sidebar title ("Theme Settings") */
+    [data-testid="stSidebar"] h2 {
         color: black;
     }
 
-    /* "Select Theme Mode:" (for radio button) */
-    section[data-testid="stSidebar"] label {
+    /* Label for radio ("Select Theme Mode:") */
+    [data-testid="stSidebar"] .css-1d391kg {
         color: orange;
+        font-weight: bold;
     }
 
-    /* ["Light", "Dark"] */
-    section[data-testid="stSidebar"] div[role="radiogroup"] > label > div {
+    /* Radio options ("Light", "Dark") */
+    [data-testid="stSidebar"] .stRadio > div > label {
         color: yellow;
+        font-weight: bold;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 # Sidebar Content
 st.sidebar.title("Theme Settings")
