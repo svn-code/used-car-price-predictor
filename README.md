@@ -63,9 +63,14 @@
 
 ## App
 
-# Light Mode 
+  # Light Mode 
 
-https://github.com/svn-code/used-car-price-predictor/blob/6aa0aec768a4ca1d34b388d11a1ed588f8cd58f5/light_mode.png     
+  ![My Project Screenshot](images/Light mode.png)
+
+  # Dark Mode
+
+  ![My Project Screenshot](images/Dark mode.png)
+
 
 # Dark mode
 
