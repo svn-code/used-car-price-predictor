@@ -21,6 +21,50 @@ st.sidebar.title("Theme Settings")
 mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
 st.session_state["mode"] = mode
 
+# ------------- Global CSS for Styling -------------
+def apply_global_css():
+    light_background = "#F5F5F5"
+    dark_background = "#1E1E1E"
+    light_text = "#333333"
+    dark_text = "#FFFFFF"
+    light_title = "#FF9933"
+    dark_title = "#FF5733"
+    light_headings = "#222222"
+    dark_headings = "#FFEB3B"
+    
+    page_background = light_background if st.session_state.get("mode",
+                                "Light") == "Light" else dark_background
+    title_color = light_title if st.session_state.get("mode",
+                               "Light") == "Light" else dark_title
+    text_color = light_text if st.session_state.get("mode",
+                              "Light") == "Light" else dark_text
+    heading_color = light_headings if st.session_state.get("mode",
+                                   "Light") == "Light" else dark_headings
+    
+    st.markdown(f"""
+    <style>
+        .stApp {{ background-color: {page_background}; }}
+        h1, h2, h3, h4 {{ color: {title_color}; }}
+        h1 {{ font-size: 3em; }}
+        h2 {{ font-size: 2em; }}
+        h3 {{ font-size: 1.5em; }}
+        h4 {{ font-size: 1.2em; }}
+        p, li, span, label {{ color: {text_color}; font-size: 1.2em; }}
+        .stSidebar {{ background-color: #FFFFFF; }}
+        .stButton {{ background-color: {title_color}; color: {text_color}; }}
+        .stButton:hover {{ background-color: #FF5722; }}
+        .stSelectbox, .stRadio, .stSlider {{ color: {text_color}; }}
+        .stNumberInput input {{ color: {text_color}; }}
+        .stImage img {{ border-radius: 15px; border: 2px solid {light_title}; }}
+        .stAlert {{ background-color: #FFEB3B; color: {dark_text}; }}
+    </style>
+    """, unsafe_allow_html=True)
+
+# Apply custom global CSS (after mode init)
+
+apply_global_css()
+
+
 # ------------- Main Heading -------------
 st.markdown(
     f"<h1 style='text-align:center; color:{get_color('#FF9933', 'red')};'>Used Car Price Predictor in Indian Cities</h1>",
