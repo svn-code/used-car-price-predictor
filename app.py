@@ -10,6 +10,7 @@ model = joblib.load('final_xgboost_model.pkl')
 df = pd.read_csv('cleaned_car_dataset.csv')
 car_image = Image.open('car.png')
 
+
 # ------------- Styling Functions -------------
 def get_color(light_color, dark_color):
     return light_color if st.session_state.get("mode", "Light") == "Light" else dark_color
@@ -17,16 +18,15 @@ def get_color(light_color, dark_color):
 # ------------- Sidebar for Mode Selection -------------
 if "mode" not in st.session_state:
     st.session_state["mode"] = "Light"
-    
 
 # Sidebar Content
 st.sidebar.title("Theme Settings")
-# Sidebar radio button
 mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
 st.session_state["mode"] = mode
 
 # Define button color based on theme
-button_color = get_color('yellow', 'blue')
+button_background = get_color('#FFD700', '#1E90FF')  # Light: Gold, Dark: DodgerBlue
+button_text_color = get_color('#000000', '#FF00FF')   # Light: Black, Dark: Magenta
 
 # ------------- Global CSS for Styling -------------
 def apply_global_css():
@@ -39,14 +39,10 @@ def apply_global_css():
     light_headings = "#222222"
     dark_headings = "#FFEB3B"
     
-    page_background = light_background if st.session_state.get("mode",
-                                "Light") == "Light" else dark_background
-    title_color = light_title if st.session_state.get("mode",
-                               "Light") == "Light" else dark_title
-    text_color = light_text if st.session_state.get("mode",
-                              "Light") == "Light" else dark_text
-    heading_color = light_headings if st.session_state.get("mode",
-                                   "Light") == "Light" else dark_headings
+    page_background = light_background if st.session_state.get("mode", "Light") == "Light" else dark_background
+    title_color = light_title if st.session_state.get("mode", "Light") == "Light" else dark_title
+    text_color = light_text if st.session_state.get("mode", "Light") == "Light" else dark_text
+    heading_color = light_headings if st.session_state.get("mode", "Light") == "Light" else dark_headings
     
     st.markdown(f"""
     <style>
@@ -58,17 +54,35 @@ def apply_global_css():
         h4 {{ font-size: 1.2em; }}
         p, li, span, label {{ color: {text_color}; font-size: 1.2em; }}
         .stSidebar {{ background-color: #FFFFFF; }}
-        .stButton {{ background-color: {button_color}; color: {text_color}; }}
-        .stButton:hover {{ background-color: #FF5722; }}
         .stSelectbox, .stRadio, .stSlider {{ color: {text_color}; }}
         .stNumberInput input {{ color: {text_color}; }}
         .stImage img {{ border-radius: 15px; border: 2px solid {light_title}; }}
         .stAlert {{ background-color: #FFEB3B; color: {dark_text}; }}
+        
+        /* Custom button styling */
+        div.stButton > button {{
+            background-color: {button_background};
+            color: {button_text_color};
+            border: none;
+            padding: 10px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: auto;
+            display: block;
+        }}
+        div.stButton > button:hover {{
+            background-color: #FF5722;
+            color: white;
+        }}
     </style>
     """, unsafe_allow_html=True)
 
 # Apply custom global CSS (after mode init)
 apply_global_css()
+
 
 # ------------- Main Heading -------------
 st.markdown(
