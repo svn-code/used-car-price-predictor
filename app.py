@@ -226,7 +226,6 @@ if predict_btn:
         with st.spinner('Predicting the best price for you...'):
             
             # Prepare input DataFrame 
-            
             input_df = pd.DataFrame({
                 'Year': [year],
                 'Odometer Reading (km)': [kms_driven],
@@ -248,31 +247,31 @@ if predict_btn:
                 'Model_A6': [1 if car_model == 'A6' else 0],
                 'Model_Altroz': [1 if car_model == 'Altroz' else 0],
                 'Model_C-Class': [1 if car_model == 'C-Class' else 0],
-                'Model_City': [1 if car_model== 'City' else 0],
-                'Model_Civic': [1 if car_model== 'Civic' else 0],
-                'Model_Corolla': [1 if car_model== 'Corolla' else 0],
-                'Model_Creta': [1 if car_model== 'Creta' else 0],
-                'Model_Dzire': [1 if car_model== 'Dzire' else 0],
-                'Model_E-Class': [1 if car_model== 'E-Class' else 0],
-                'Model_EcoSport': [1 if car_model== 'EcoSport' else 0],
-                'Model_Elantra': [1 if car_model== 'Elantra' else 0],
-                'Model_Endeavour': [1 if car_model== 'Endeavour' else 0],
-                'Model_Fiesta': [1 if car_model== 'Fiesta' else 0],
-                'Model_Fortuner': [1 if car_model== 'Fortuner' else 0],
-                'Model_Harrier': [1 if car_model== 'Harrier' else 0],
-                'Model_Innova': [1 if car_model== 'Innova' else 0],
-                'Model_Jazz': [1 if car_model== 'Jazz' else 0],
-                'Model_Kicks': [1 if car_model== 'Kicks' else 0],
-                'Model_M3': [1 if car_model== 'M3' else 0],
+                'Model_City': [1 if car_model == 'City' else 0],
+                'Model_Civic': [1 if car_model == 'Civic' else 0],
+                'Model_Corolla': [1 if car_model == 'Corolla' else 0],
+                'Model_Creta': [1 if car_model == 'Creta' else 0],
+                'Model_Dzire': [1 if car_model == 'Dzire' else 0],
+                'Model_E-Class': [1 if car_model == 'E-Class' else 0],
+                'Model_EcoSport': [1 if car_model == 'EcoSport' else 0],
+                'Model_Elantra': [1 if car_model == 'Elantra' else 0],
+                'Model_Endeavour': [1 if car_model == 'Endeavour' else 0],
+                'Model_Fiesta': [1 if car_model == 'Fiesta' else 0],
+                'Model_Fortuner': [1 if car_model == 'Fortuner' else 0],
+                'Model_Harrier': [1 if car_model == 'Harrier' else 0],
+                'Model_Innova': [1 if car_model == 'Innova' else 0],
+                'Model_Jazz': [1 if car_model == 'Jazz' else 0],
+                'Model_Kicks': [1 if car_model == 'Kicks' else 0],
+                'Model_M3': [1 if car_model == 'M3' else 0],
                 'Model_Magnite': [1 if car_model == 'Magnite' else 0],
-                'Model_Nexon': [1 if car_model== 'Nexon' else 0],
-                'Model_Q5': [1 if car_model== 'Q5' else 0],
-                'Model_S-Class': [1 if car_model== 'S-Class' else 0],
+                'Model_Nexon': [1 if car_model == 'Nexon' else 0],
+                'Model_Q5': [1 if car_model == 'Q5' else 0],
+                'Model_S-Class': [1 if car_model == 'S-Class' else 0],
                 'Model_Swift': [1 if car_model == 'Swift' else 0],
                 'Model_Terrano': [1 if car_model == 'Terrano' else 0],
                 'Model_Verna': [1 if car_model == 'Verna' else 0],
-                'Model_Vitara Brezza': [1 if car_model== 'Vitara Brezza' else 0],
-                'Model_X5': [1 if car_model== 'X5' else 0],
+                'Model_Vitara Brezza': [1 if car_model == 'Vitara Brezza' else 0],
+                'Model_X5': [1 if car_model == 'X5' else 0],
                 
                 # Fuel Type
                 'Fuel Type_Diesel': [1 if fuel_type == 'Diesel' else 0],
@@ -284,17 +283,17 @@ if predict_btn:
                 
                 # Color
                 'Color_Blue': [1 if car_color == 'Blue' else 0],
-                'Color_Grey': [1 if car_color== 'Grey' else 0],
-                'Color_Red': [1 if car_color== 'Red' else 0],
+                'Color_Grey': [1 if car_color == 'Grey' else 0],
+                'Color_Red': [1 if car_color == 'Red' else 0],
                 'Color_Silver': [1 if car_color == 'Silver' else 0],
-                'Color_White': [1 if car_color== 'White' else 0],
+                'Color_White': [1 if car_color == 'White' else 0],
                 
                 # Number of Owners
-                'Number of Owners_2 owner': [1 if owner== '2 owner' else 0],
-                'Number of Owners_3 owner': [1 if owner== '3 owner' else 0],
+                'Number of Owners_2 owner': [1 if owner == '2 owner' else 0],
+                'Number of Owners_3 owner': [1 if owner == '3 owner' else 0],
                 
                 # Service History
-                'Service History_Yes': [1 if service== 'Yes' else 0],
+                'Service History_Yes': [1 if service == 'Yes' else 0],
                 
                 # Location
                 'Location_Bangalore': [1 if location == 'Bangalore' else 0],
@@ -316,16 +315,13 @@ if predict_btn:
                 'Car Type_Wagon': [1 if car_type == 'Wagon' else 0],
                 
                 # Insurance Type
-                'Insurance Type_Third-Party': [1 if insurance == 'Third-Party' else 0]
+                'Insurance Type_Comprehensive': [1 if insurance == 'Comprehensive' else 0],
+                'Insurance Type_Third-Party': [1 if insurance == 'Third-Party' else 0],
             })
-        
-            # Predict
-            prediction = model.predict(input_df)
-            prediction=np.expm1(prediction).astype(float)
-	
-            st.success(f"Predicted Car Price: ₹{prediction[0]:,.2f}")
 
+            # Predict the price
+            prediction = model.predict(input_df)[0]
+            
+            st.success(f"🎯 Estimated Price for Your Car: ₹ {prediction:,.2f}")
     else:
-        st.error("❗ Please Enter All Car Details")
-
-st.markdown("</div>", unsafe_allow_html=True)
+        st.error("🚫 Please fill all the car details properly!")
