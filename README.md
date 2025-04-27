@@ -5,7 +5,7 @@
 ---
 
 ## Vist App
-  [Link Text](http://used-car-price-predictor-5emzhb5mqejedxyymqyba4.streamlit.app)
+  [Link Text](http://used-car-price-predictor-rvkthsnlxxhn8pappcqr8cs.streamlit.app)
 
 ## Features
 
