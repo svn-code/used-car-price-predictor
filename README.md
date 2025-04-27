@@ -35,7 +35,7 @@
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/used-car-price-prediction.git
+   git clone https://github.com/svn-code/used-car-price-prediction.git
    cd used-car-price-prediction
    ```
 
