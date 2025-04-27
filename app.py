@@ -1,7 +1,9 @@
+just change the theme available side bar background suitable for both light and dark mode and other one change the predict button colour as yellow for both light and dark mode.
 import streamlit as st
 import pandas as pd
 import joblib
 from PIL import Image
+import numpy as np
 
 # Load model and data
 model = joblib.load('final_xgboost_model.pkl')
@@ -28,33 +30,33 @@ def apply_global_css():
     light_title = "#FF9933"
     dark_title = "#FF5733"
     light_headings = "#222222"
-    dark_headings = "#FFD700"  # A lighter yellow for dark mode
-    dark_sidebar_background = "#2B2B2B"  # Dark background for sidebar
-    dark_input_fields = "#3A3A3A"  # Dark color for input fields in dark mode
+    dark_headings = "#FFEB3B"
     
-    page_background = light_background if st.session_state.get("mode", "Light") == "Light" else dark_background
-    title_color = light_title if st.session_state.get("mode", "Light") == "Light" else dark_title
-    text_color = light_text if st.session_state.get("mode", "Light") == "Light" else dark_text
-    heading_color = light_headings if st.session_state.get("mode", "Light") == "Light" else dark_headings
+    page_background = light_background if st.session_state.get("mode",
+                                "Light") == "Light" else dark_background
+    title_color = light_title if st.session_state.get("mode",
+                               "Light") == "Light" else dark_title
+    text_color = light_text if st.session_state.get("mode",
+                              "Light") == "Light" else dark_text
+    heading_color = light_headings if st.session_state.get("mode",
+                                   "Light") == "Light" else dark_headings
     
     st.markdown(f"""
     <style>
         .stApp {{ background-color: {page_background}; }}
-        h1, h2, h3, h4 {{ color: {heading_color}; }}
+        h1, h2, h3, h4 {{ color: {title_color}; }}
         h1 {{ font-size: 3em; }}
         h2 {{ font-size: 2em; }}
         h3 {{ font-size: 1.5em; }}
         h4 {{ font-size: 1.2em; }}
         p, li, span, label {{ color: {text_color}; font-size: 1.2em; }}
-        .stSidebar {{ background-color: {dark_sidebar_background}; }}
+        .stSidebar {{ background-color: #FFFFFF; }}
         .stButton {{ background-color: {title_color}; color: {text_color}; }}
         .stButton:hover {{ background-color: #FF5722; }}
         .stSelectbox, .stRadio, .stSlider {{ color: {text_color}; }}
         .stNumberInput input {{ color: {text_color}; }}
         .stImage img {{ border-radius: 15px; border: 2px solid {light_title}; }}
         .stAlert {{ background-color: #FFEB3B; color: {dark_text}; }}
-        .stSelectbox, .stRadio, .stButton, .stNumberInput input {{ background-color: {dark_input_fields}; color: {text_color}; }}
-        .stSelectbox option, .stRadio input, .stButton {{ color: {text_color}; }}
     </style>
     """, unsafe_allow_html=True)
 
@@ -63,7 +65,7 @@ apply_global_css()
 
 # ------------- Main Heading -------------
 st.markdown(
-    f"<h1 style='text-align:center; color:{get_color('#FF9933', '#FF5733')};'>Used Car Price Predictor in Indian Cities</h1>",
+    f"<h1 style='text-align:center; color:{get_color('#FF9933', 'red')};'>Used Car Price Predictor in Indian Cities</h1>",
     unsafe_allow_html=True
 )
 st.markdown(
@@ -82,7 +84,7 @@ with left_column:
 # --- Right Side ---
 with right_column:
     st.markdown(
-        f"<h2 style='text-align:center; color:{get_color('#FF9933', '#FF5733')};'>Enter Car Details</h2>",
+        f"<h2 style='text-align:center; color:{get_color('#FF9933', 'red')};'>Enter Car Details</h2>",
         unsafe_allow_html=True
     )
 
@@ -198,30 +200,60 @@ if predict_btn:
                 'Model_Q5': [1 if car_model== 'Q5' else 0],
                 'Model_S-Class': [1 if car_model== 'S-Class' else 0],
                 'Model_Swift': [1 if car_model == 'Swift' else 0],
-                'Model_Tiago': [1 if car_model == 'Tiago' else 0],
-                'Model_Tiguan': [1 if car_model == 'Tiguan' else 0],
-                'Model_Tucson': [1 if car_model == 'Tucson' else 0],
-                'Model_Vento': [1 if car_model== 'Vento' else 0],
-                'Model_X5': [1 if car_model == 'X5' else 0],
+                'Model_Terrano': [1 if car_model == 'Terrano' else 0],
+                'Model_Verna': [1 if car_model == 'Verna' else 0],
+                'Model_Vitara Brezza': [1 if car_model== 'Vitara Brezza' else 0],
+                'Model_X5': [1 if car_model== 'X5' else 0],
                 
-                # Features
-                'Car Type_Sedan': [1 if car_type == 'Sedan' else 0],
-                'Car Type_SUV': [1 if car_type == 'SUV' else 0],
-                'Car Type_Hatchback': [1 if car_type == 'Hatchback' else 0],
-                'Fuel Type_Petrol': [1 if fuel_type == 'Petrol' else 0],
+                # Fuel Type
                 'Fuel Type_Diesel': [1 if fuel_type == 'Diesel' else 0],
-                'Transmission Type_Automatic': [1 if transmission == 'Automatic' else 0],
+                'Fuel Type_Electric': [1 if fuel_type == 'Electric' else 0],
+                'Fuel Type_Petrol': [1 if fuel_type == 'Petrol' else 0],
+                
+                # Transmission
                 'Transmission Type_Manual': [1 if transmission == 'Manual' else 0],
-                'Accident History_Yes': [1 if accidents == 'Yes' else 0],
-                'Accident History_No': [1 if accidents == 'No' else 0],
-                'Service History_Yes': [1 if service == 'Yes' else 0],
-                'Service History_No': [1 if service == 'No' else 0],
-                'Insurance Type_Comprehensive': [1 if insurance == 'Comprehensive' else 0],
-                'Insurance Type_Liability': [1 if insurance == 'Liability' else 0],
+                
+                # Color
+                'Color_Blue': [1 if car_color == 'Blue' else 0],
+                'Color_Grey': [1 if car_color== 'Grey' else 0],
+                'Color_Red': [1 if car_color== 'Red' else 0],
+                'Color_Silver': [1 if car_color == 'Silver' else 0],
+                'Color_White': [1 if car_color== 'White' else 0],
+                
+                # Number of Owners
+                'Number of Owners_2 owner': [1 if owner== '2 owner' else 0],
+                'Number of Owners_3 owner': [1 if owner== '3 owner' else 0],
+                
+                # Service History
+                'Service History_Yes': [1 if service== 'Yes' else 0],
+                
+                # Location
+                'Location_Bangalore': [1 if location == 'Bangalore' else 0],
+                'Location_Chennai': [1 if location == 'Chennai' else 0],
+                'Location_Delhi': [1 if location == 'Delhi' else 0],
+                'Location_Hyderabad': [1 if location == 'Hyderabad' else 0],
+                'Location_Kolkata': [1 if location == 'Kolkata' else 0],
+                'Location_Mumbai': [1 if location == 'Mumbai' else 0],
+                'Location_Pune': [1 if location == 'Pune' else 0],
+                
+                # Previous Accidents
+                'Previous Accidents_Yes': [1 if accidents == 'Yes' else 0],
+                
+                # Car Type
+                'Car Type_Coupe': [1 if car_type == 'Coupe' else 0],
+                'Car Type_Hatchback': [1 if car_type == 'Hatchback' else 0],
+                'Car Type_SUV': [1 if car_type == 'SUV' else 0],
+                'Car Type_Sedan': [1 if car_type == 'Sedan' else 0],
+                'Car Type_Wagon': [1 if car_type == 'Wagon' else 0],
+                
+                # Insurance Type
+                'Insurance Type_Third-Party': [1 if insurance == 'Third-Party' else 0]
+
+                
             })
-            
-            # Predict and display result
-            predicted_price = model.predict(input_df)
-            st.write(f"**Predicted Car Price: ₹{predicted_price[0]:,.0f}**")
+            prediction = model.predict(input_df)
+            prediction = np.expm1(prediction).astype(float)
+            st.success(f"Predicted Car Price: ₹{prediction[0]:,.2f}")
     else:
-        st.warning("Please fill all the details before prediction!")
+        st.warning("Please fill in all the details.")
+st.markdown("</div>", unsafe_allow_html=True)
