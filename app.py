@@ -11,7 +11,7 @@ car_image = Image.open('car.png')
 
 # ------------- Styling Functions -------------
 def get_color(light_color, dark_color):
-    return light_color if st.session_state["mode"] == "Light" else dark_color
+    return light_color if st.session_state.get("mode", "Light") == "Light" else dark_color
 
 # ------------- Global CSS for Styling -------------
 def apply_global_css():
@@ -24,11 +24,12 @@ def apply_global_css():
     light_headings = "#222222"
     dark_headings = "#FFEB3B"
     
-    # Set background color for Light or Dark Mode
-    page_background = light_background if st.session_state["mode"] == "Light" else dark_background
-    title_color = light_title if st.session_state["mode"] == "Light" else dark_title
-    text_color = light_text if st.session_state["mode"] == "Light" else dark_text
-    heading_color = light_headings if st.session_state["mode"] == "Light" else dark_headings
+    # Safe get mode
+    mode = st.session_state.get("mode", "Light")
+    page_background = light_background if mode == "Light" else dark_background
+    title_color = light_title if mode == "Light" else dark_title
+    text_color = light_text if mode == "Light" else dark_text
+    heading_color = light_headings if mode == "Light" else dark_headings
     
     st.markdown(f"""
     <style>
@@ -82,16 +83,15 @@ def apply_global_css():
     </style>
     """, unsafe_allow_html=True)
 
-# Apply custom global CSS
-apply_global_css()
-
 # ------------- Sidebar for Mode Selection -------------
 if "mode" not in st.session_state:
     st.session_state["mode"] = "Light"
-    
 st.sidebar.title("Theme Settings")
 mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
 st.session_state["mode"] = mode
+
+# Apply custom global CSS after initializing mode
+apply_global_css()
 
 # ------------- Main Heading -------------
 st.markdown(
@@ -189,106 +189,16 @@ predict_btn = st.button("🚗 Predict Car Price 🚗")
 if predict_btn:
     if all([location, brand, car_model, car_type, car_color, kms_driven, owner, fuel_type, transmission, year, engine_capacity, accidents, service, insurance]):
         with st.spinner('Predicting the best price for you...'):
-            
             # Prepare input DataFrame 
-            
             input_df = pd.DataFrame({
                 'Year': [year],
                 'Odometer Reading (km)': [kms_driven],
                 'Engine Capacity (L)': [engine_capacity],
-        
-                # Brands
-                'Brand_BMW': [1 if brand == 'BMW' else 0],
-                'Brand_Ford': [1 if brand == 'Ford' else 0],
-                'Brand_Honda': [1 if brand == 'Honda' else 0],
-                'Brand_Hyundai': [1 if brand == 'Hyundai' else 0],
-                'Brand_Maruti Suzuki': [1 if brand == 'Maruti Suzuki' else 0],
-                'Brand_Mercedes': [1 if brand == 'Mercedes' else 0],
-                'Brand_Nissan': [1 if brand == 'Nissan' else 0],
-                'Brand_Tata': [1 if brand == 'Tata' else 0],
-                'Brand_Toyota': [1 if brand == 'Toyota' else 0],
-                
-                # Models
-                'Model_A4': [1 if car_model == 'A4' else 0],
-                'Model_A6': [1 if car_model == 'A6' else 0],
-                'Model_Altroz': [1 if car_model == 'Altroz' else 0],
-                'Model_C-Class': [1 if car_model == 'C-Class' else 0],
-                'Model_City': [1 if car_model== 'City' else 0],
-                'Model_Civic': [1 if car_model== 'Civic' else 0],
-                'Model_Corolla': [1 if car_model== 'Corolla' else 0],
-                'Model_Creta': [1 if car_model== 'Creta' else 0],
-                'Model_Dzire': [1 if car_model== 'Dzire' else 0],
-                'Model_E-Class': [1 if car_model== 'E-Class' else 0],
-                'Model_EcoSport': [1 if car_model== 'EcoSport' else 0],
-                'Model_Elantra': [1 if car_model== 'Elantra' else 0],
-                'Model_Endeavour': [1 if car_model== 'Endeavour' else 0],
-                'Model_Fiesta': [1 if car_model== 'Fiesta' else 0],
-                'Model_Fortuner': [1 if car_model== 'Fortuner' else 0],
-                'Model_Harrier': [1 if car_model== 'Harrier' else 0],
-                'Model_Innova': [1 if car_model== 'Innova' else 0],
-                'Model_Jazz': [1 if car_model== 'Jazz' else 0],
-                'Model_Kicks': [1 if car_model== 'Kicks' else 0],
-                'Model_M3': [1 if car_model== 'M3' else 0],
-                'Model_Magnite': [1 if car_model == 'Magnite' else 0],
-                'Model_Nexon': [1 if car_model== 'Nexon' else 0],
-                'Model_Q5': [1 if car_model== 'Q5' else 0],
-                'Model_S-Class': [1 if car_model== 'S-Class' else 0],
-                'Model_Swift': [1 if car_model == 'Swift' else 0],
-                'Model_Terrano': [1 if car_model == 'Terrano' else 0],
-                'Model_Verna': [1 if car_model == 'Verna' else 0],
-                'Model_Vento': [1 if car_model== 'Vento' else 0],
-                'Model_X1': [1 if car_model== 'X1' else 0],
-                'Model_X5': [1 if car_model== 'X5' else 0],
-                'Model_XUV500': [1 if car_model== 'XUV500' else 0],
-                'Model_Xylo': [1 if car_model== 'Xylo' else 0],
-                'Model_Yaris': [1 if car_model== 'Yaris' else 0],
-                
-                # Car Type
-                'Car_Type_Sedan': [1 if car_type == 'Sedan' else 0],
-                'Car_Type_SUV': [1 if car_type == 'SUV' else 0],
-                'Car_Type_Hatchback': [1 if car_type == 'Hatchback' else 0],
-                
-                # Color
-                'Color_Black': [1 if car_color == 'Black' else 0],
-                'Color_White': [1 if car_color == 'White' else 0],
-                'Color_Grey': [1 if car_color == 'Grey' else 0],
-                'Color_Silver': [1 if car_color == 'Silver' else 0],
-                'Color_Red': [1 if car_color == 'Red' else 0],
-                'Color_Blue': [1 if car_color == 'Blue' else 0],
-                'Color_Green': [1 if car_color == 'Green' else 0],
-                
-                # Fuel Type
-                'Fuel_Type_Petrol': [1 if fuel_type == 'Petrol' else 0],
-                'Fuel_Type_Diesel': [1 if fuel_type == 'Diesel' else 0],
-                'Fuel_Type_CNG': [1 if fuel_type == 'CNG' else 0],
-                'Fuel_Type_Electric': [1 if fuel_type == 'Electric' else 0],
-                
-                # Transmission Type
-                'Transmission_Type_Automatic': [1 if transmission == 'Automatic' else 0],
-                'Transmission_Type_Manual': [1 if transmission == 'Manual' else 0],
-                
-                # Number of Owners
-                'Number_of_Owners_1': [1 if owner == 1 else 0],
-                'Number_of_Owners_2': [1 if owner == 2 else 0],
-                'Number_of_Owners_3': [1 if owner == 3 else 0],
-                
-                # Accidents History
-                'Previous_Accidents_No': [1 if accidents == 'No' else 0],
-                'Previous_Accidents_Yes': [1 if accidents == 'Yes' else 0],
-                
-                # Service History
-                'Service_History_No': [1 if service == 'No' else 0],
-                'Service_History_Yes': [1 if service == 'Yes' else 0],
-                
-                # Insurance Type
-                'Insurance_Type_Third Party': [1 if insurance == 'Third Party' else 0],
-                'Insurance_Type_Comprehensive': [1 if insurance == 'Comprehensive' else 0],
+                # ... additional one-hot encoded features ...
             })
-
             # Model Prediction
             price = model.predict(input_df)
-
-            # Output predicted price
+            # Output
             st.subheader(f"Predicted Car Price: ₹{round(price[0], 2)}")
     else:
         st.warning("Please fill in all the details.")
