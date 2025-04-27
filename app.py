@@ -47,25 +47,25 @@ with right_column:
     )
 
     # 1. Location
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Location</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Location</h4>", unsafe_allow_html=True)
     location = st.select_slider('Select Location', sorted(df['Location'].unique()))
 
     # 2. Brand
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Brand</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Car Brand</h4>", unsafe_allow_html=True)
     brand = st.select_slider('Select Car Brand', sorted(df['Brand'].unique()))
 
     # 3. Model
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Model</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Car Model</h4>", unsafe_allow_html=True)
     model_options = df[df['Brand'] == brand]['Model'].unique()
     car_model = st.select_slider('Select Car Model', sorted(model_options)) if len(model_options) > 0 else None
 
     # 4. Car Type
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Type</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Car Type</h4>", unsafe_allow_html=True)
     type_options = df[(df['Brand'] == brand) & (df['Model'] == car_model)]['Car Type'].unique()
     car_type = st.select_slider('Select Car Type', sorted(type_options)) if len(type_options) > 0 else None
 
     # 5. Car Color
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Color</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Car Color</h4>", unsafe_allow_html=True)
     color_options = df[(df['Brand'] == brand) & (df['Model'] == car_model) & (df['Car Type'] == car_type)]['Color'].unique()
     car_color = st.select_slider('Select Car Color', sorted(color_options)) if len(color_options) > 0 else None
 
@@ -73,39 +73,39 @@ with right_column:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Odometer Reading (km)</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Odometer Reading (km)</h4>", unsafe_allow_html=True)
         kms_driven = st.number_input('Enter KMs Driven', min_value=5000, max_value=200000, step=1000)
 
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Number of Owners</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Number of Owners</h4>", unsafe_allow_html=True)
         owner = st.radio('Number of Owners', sorted(df['Number of Owners'].unique()))
 
     with col2:
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Fuel Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Fuel Type</h4>", unsafe_allow_html=True)
         fuel_type = st.radio('Select Fuel Type', sorted(df['Fuel Type'].unique()))
 
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Transmission Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Transmission Type</h4>", unsafe_allow_html=True)
         transmission = st.radio('Select Transmission', sorted(df['Transmission Type'].unique()))
 
     # Manufactured Year
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Manufactured Year</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Manufactured Year</h4>", unsafe_allow_html=True)
     year = st.slider('Select Manufactured Year', 2000, 2024, step=1)
 
     # Engine Capacity
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Engine Capacity (Litres)</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Engine Capacity (Litres)</h4>", unsafe_allow_html=True)
     engine_capacity = st.slider('Select Engine Capacity', 1.0, 5.0, step=0.1)
 
     # Split again
     col3, col4 = st.columns(2)
 
     with col3:
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Previous Accidents</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Previous Accidents</h4>", unsafe_allow_html=True)
         accidents = st.radio('Accident History', sorted(df['Previous Accidents'].unique()))
 
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Service History</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Service History</h4>", unsafe_allow_html=True)
         service = st.radio('Service History', sorted(df['Service History'].unique()))
 
     with col4:
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Insurance Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'yellow')};'>Insurance Type</h4>", unsafe_allow_html=True)
         insurance = st.radio('Insurance Type', sorted(df['Insurance Type'].unique()))
 
 # ------------- Predict Button -------------
