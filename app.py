@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import joblib
 from PIL import Image
-import numpy as np
 
 # Load model and data
 model = joblib.load('final_xgboost_model.pkl')
@@ -64,7 +63,7 @@ apply_global_css()
 
 # ------------- Main Heading -------------
 st.markdown(
-    f"<h1 style='text-align:center; color:{get_color('#FF9933', 'red')};'>Used Car Price Predictor in Indian Cities</h1>",
+    f"<h1 style='text-align:center; color:{get_color('#FF9933', '#FF5733')};'>Used Car Price Predictor in Indian Cities</h1>",
     unsafe_allow_html=True
 )
 st.markdown(
@@ -83,7 +82,7 @@ with left_column:
 # --- Right Side ---
 with right_column:
     st.markdown(
-        f"<h2 style='text-align:center; color:{get_color('#FF9933', 'red')};'>Enter Car Details</h2>",
+        f"<h2 style='text-align:center; color:{get_color('#FF9933', '#FF5733')};'>Enter Car Details</h2>",
         unsafe_allow_html=True
     )
 
