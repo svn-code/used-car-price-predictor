@@ -25,8 +25,8 @@ mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
 st.session_state["mode"] = mode
 
 # Define button color based on theme
-button_background = get_color('#FFD700', '#1E90FF')  # Light: Gold, Dark: DodgerBlue
-button_text_color = get_color('#000000', '#FF00FF')   # Light: Black, Dark: Magenta
+button_background = get_color('##FFFFFF', '#FAF9F6')  # Light: Gold, Dark: DodgerBlue
+button_text_color = get_color('#FF9933', '#228B22')   # Light: Black, Dark: Magenta
 
 # ------------- Global CSS for Styling -------------
 def apply_global_css():
