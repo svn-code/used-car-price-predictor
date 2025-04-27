@@ -27,7 +27,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    f"<h4 style='text-align:center; color:{get_color('black', 'white')}; font-weight:normal;'>Just enter the car details, you will get car price</h4>",
+    f"<h4 style='text-align:center; color:{get_color('black', 'violet')}; font-weight:normal;'>Just enter the car details, you will get car price</h4>",
     unsafe_allow_html=True
 )
 st.markdown("---")
