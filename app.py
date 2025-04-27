@@ -1,4 +1,4 @@
-just change the theme available side bar background suitable for both light and dark mode and other one change the predict button colour as yellow for both light and dark mode.
+
 import streamlit as st
 import pandas as pd
 import joblib
