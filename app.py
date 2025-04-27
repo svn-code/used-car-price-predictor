@@ -124,6 +124,7 @@ def apply_global_css():
     """, unsafe_allow_html=True)
 
 # Apply custom global CSS (after mode init)
+apply_theme(mode)
 apply_global_css()
 
 # ------------- Main Heading -------------
