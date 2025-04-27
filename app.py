@@ -22,46 +22,47 @@ st.session_state["mode"] = mode
 
 # ------------- Global CSS for Styling -------------
 def apply_global_css():
-    # Theme colors
+    # Light theme colors
     light_background = "#F5F5F5"
-    dark_background = "#1E1E1E"
-    light_text = "#333333"
-    dark_text = "#FFFFFF"
-    light_title = "#FF9933"
-    dark_title = "#FF5733"
-    light_headings = "#222222"
-    dark_headings = "#FFEB3B"
-    # Sidebar background
     light_sidebar = "#EFEFEF"
-    dark_sidebar = "#333333"
-    # Button colors (predict button)
-    button_color = "#FFEB3B"  # yellow
+    light_text = "#333333"
+    light_title = "#FF9933"
+    light_headings = "#222222"
+    # Dark theme colors (updated for better contrast)
+    dark_background = "#121212"
+    dark_sidebar = "#2B2B2B"
+    dark_text = "#E0E0E0"
+    dark_title = "#FFD54F"
+    dark_headings = "#FFAB40"
+    # Predict button colors (yellow)
+    button_color = "#FFEB3B"
     button_hover = "#FBC02D"
-    
-    # Determine based on mode
-    page_background = light_background if st.session_state.get("mode") == "Light" else dark_background
-    sidebar_bg = light_sidebar if st.session_state.get("mode") == "Light" else dark_sidebar
-    title_color = light_title if st.session_state.get("mode") == "Light" else dark_title
-    text_color = light_text if st.session_state.get("mode") == "Light" else dark_text
-    heading_color = light_headings if st.session_state.get("mode") == "Light" else dark_headings
-    
+
+    # Determine current theme
+    mode = st.session_state.get("mode", "Light")
+    page_bg = light_background if mode == "Light" else dark_background
+    sidebar_bg = light_sidebar if mode == "Light" else dark_sidebar
+    title_color = light_title if mode == "Light" else dark_title
+    text_color = light_text if mode == "Light" else dark_text
+    heading_color = light_headings if mode == "Light" else dark_headings
+
     st.markdown(f"""
     <style>
-        /* Global background */
-        .stApp {{ background-color: {page_background}; }}
-        /* Sidebar background */
+        .stApp {{ background-color: {page_bg}; }}
+        /* Sidebar */
         .css-1d391kg .stSidebar {{ background-color: {sidebar_bg}; }}
-        /* Titles and headings */
-        h1, h2, h3, h4 {{ color: {title_color}; }}
-        /* Text color */
+        /* Titles & Headings */
+        h1 {{ color: {title_color}; }}
+        h2, h3, h4 {{ color: {heading_color}; }}
+        /* Text */
         p, li, span, label {{ color: {text_color}; }}
         /* Predict button styling */
-        .stButton > button {{ background-color: {button_color} !important; color: #000000 !important; }}
+        .stButton > button {{ background-color: {button_color} !important; color: #000 !important; border-radius: 8px; }}
         .stButton > button:hover {{ background-color: {button_hover} !important; }}
     </style>
     """, unsafe_allow_html=True)
 
-# Apply CSS
+# Apply CSS after mode is set
 apply_global_css()
 
 # ------------- Main Heading -------------
@@ -70,7 +71,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    f"<h4 style='text-align:center; font-weight:normal;'>Just enter the car details, you will get car price</h4>",
+    f"<h4 style='text-align:center; font-weight:normal;'>{get_color('Just enter the car details, you will get car price','Just enter the car details, you will get car price')}</h4>",
     unsafe_allow_html=True
 )
 st.markdown("---")
@@ -88,59 +89,46 @@ with right_column:
         f"<h2 style='text-align:center;'>{get_color('Enter Car Details','Enter Car Details')}</h2>",
         unsafe_allow_html=True
     )
-
-    # 1. Location
+    # Input fields
     st.markdown("<h4>Location</h4>", unsafe_allow_html=True)
     location = st.selectbox('Select Location', sorted(df['Location'].unique()))
 
-    # 2. Brand
     st.markdown("<h4>Car Brand</h4>", unsafe_allow_html=True)
     brand = st.selectbox('Select Car Brand', sorted(df['Brand'].unique()))
 
-    # 3. Model
     st.markdown("<h4>Car Model</h4>", unsafe_allow_html=True)
     model_options = df[df['Brand'] == brand]['Model'].unique()
     car_model = st.selectbox('Select Car Model', sorted(model_options)) if len(model_options) > 0 else None
 
-    # 4. Car Type
     st.markdown("<h4>Car Type</h4>", unsafe_allow_html=True)
     type_options = df[(df['Brand'] == brand) & (df['Model'] == car_model)]['Car Type'].unique()
     car_type = st.selectbox('Select Car Type', sorted(type_options)) if len(type_options) > 0 else None
 
-    # 5. Car Color
     st.markdown("<h4>Car Color</h4>", unsafe_allow_html=True)
     color_options = df[(df['Brand'] == brand) & (df['Model'] == car_model) & (df['Car Type'] == car_type)]['Color'].unique()
     car_color = st.selectbox('Select Car Color', sorted(color_options)) if len(color_options) > 0 else None
 
-    # Split Columns
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("<h4>Odometer Reading (km)</h4>", unsafe_allow_html=True)
         kms_driven = st.number_input('Enter KMs Driven', min_value=5000, max_value=200000, step=1000)
-
         st.markdown("<h4>Number of Owners</h4>", unsafe_allow_html=True)
         owner = st.radio('Number of Owners', sorted(df['Number of Owners'].unique()))
     with col2:
         st.markdown("<h4>Fuel Type</h4>", unsafe_allow_html=True)
         fuel_type = st.radio('Select Fuel Type', sorted(df['Fuel Type'].unique()))
-
         st.markdown("<h4>Transmission Type</h4>", unsafe_allow_html=True)
         transmission = st.radio('Select Transmission', sorted(df['Transmission Type'].unique()))
 
-    # Manufactured Year
     st.markdown("<h4>Manufactured Year</h4>", unsafe_allow_html=True)
     year = st.slider('Select Manufactured Year', 2000, 2024, step=1)
-
-    # Engine Capacity
     st.markdown("<h4>Engine Capacity (Litres)</h4>", unsafe_allow_html=True)
     engine_capacity = st.slider('Select Engine Capacity', 1.0, 5.0, step=0.1)
 
-    # Split again
     col3, col4 = st.columns(2)
     with col3:
         st.markdown("<h4>Previous Accidents</h4>", unsafe_allow_html=True)
         accidents = st.radio('Accident History', sorted(df['Previous Accidents'].unique()))
-
         st.markdown("<h4>Service History</h4>", unsafe_allow_html=True)
         service = st.radio('Service History', sorted(df['Service History'].unique()))
     with col4:
@@ -156,10 +144,10 @@ predict_btn = st.button("🚗 Predict Car Price 🚗")
 if predict_btn:
     if all([location, brand, car_model, car_type, car_color, kms_driven, owner, fuel_type, transmission, year, engine_capacity, accidents, service, insurance]):
         with st.spinner('Predicting the best price for you...'):
-            input_df = pd.DataFrame({
-                'Year': [year],
-                'Odometer Reading (km)': [kms_driven],
-                'Engine Capacity (L)': [engine_capacity],
+            input_df = pd.DataFrame({ 
+                'Year':[year],
+                'Odometer Reading (km)':[kms_driven],
+                'Engine Capacity (L)':[engine_capacity],
                 # Brands
                 'Brand_BMW': [1 if brand == 'BMW' else 0],
                 'Brand_Ford': [1 if brand == 'Ford' else 0],
@@ -247,6 +235,7 @@ if predict_btn:
                 'Insurance Type_Third-Party': [1 if insurance == 'Third-Party' else 0]
 
                 
+            
             })
             prediction = model.predict(input_df)
             prediction = np.expm1(prediction).astype(float)
