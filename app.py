@@ -48,26 +48,26 @@ with right_column:
 
     # 1. Location
     st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Location</h4>", unsafe_allow_html=True)
-    location = st.select_slider('Select Location', sorted(df['Location'].unique()))
+    location = st.selectbox('Select Location', sorted(df['Location'].unique()))
 
     # 2. Brand
     st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Brand</h4>", unsafe_allow_html=True)
-    brand = st.select_slider('Select Car Brand', sorted(df['Brand'].unique()))
+    brand = st.selectbox('Select Car Brand', sorted(df['Brand'].unique()))
 
     # 3. Model
     st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Model</h4>", unsafe_allow_html=True)
     model_options = df[df['Brand'] == brand]['Model'].unique()
-    car_model = st.select_slider('Select Car Model', sorted(model_options)) if len(model_options) > 0 else None
+    car_model = st.selectbox('Select Car Model', sorted(model_options)) if len(model_options) > 0 else None
 
     # 4. Car Type
     st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Type</h4>", unsafe_allow_html=True)
     type_options = df[(df['Brand'] == brand) & (df['Model'] == car_model)]['Car Type'].unique()
-    car_type = st.select_slider('Select Car Type', sorted(type_options)) if len(type_options) > 0 else None
+    car_type = st.selectbox('Select Car Type', sorted(type_options)) if len(type_options) > 0 else None
 
     # 5. Car Color
     st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Color</h4>", unsafe_allow_html=True)
     color_options = df[(df['Brand'] == brand) & (df['Model'] == car_model) & (df['Car Type'] == car_type)]['Color'].unique()
-    car_color = st.select_slider('Select Car Color', sorted(color_options)) if len(color_options) > 0 else None
+    car_color = st.selectbox('Select Car Color', sorted(color_options)) if len(color_options) > 0 else None
 
     # Split Columns
     col1, col2 = st.columns(2)
