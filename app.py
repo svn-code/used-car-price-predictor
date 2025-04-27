@@ -61,7 +61,7 @@ def apply_theme(mode):
                 padding: 20px;
             }}
             [data-testid="stSidebar"] > div {{
-                color: white;
+                color: orange;
             }}
             [data-testid="stSidebar"] h2 {{
                 color: orange;
@@ -72,7 +72,7 @@ def apply_theme(mode):
                 font-weight: bold;
             }}
             [data-testid="stSidebar"] .stRadio div {{
-                color: white;
+                color: orange;
                 font-weight: bold;
             }}
             </style>
