@@ -19,24 +19,28 @@ if "mode" not in st.session_state:
     st.session_state["mode"] = "Light"
     
 # Inject custom CSS for styling sidebar
-st.markdown("""
+st.markdown(f"""
     <style>
-    /* Sidebar title ("Theme Settings") */
-    [data-testid="stSidebar"] h2 {
+    /* Sidebar Styling */
+    [data-testid="stSidebar"] {{
+        background-color: #ffffff;
+        padding: 20px;
+    }}
+    [data-testid="stSidebar"] > div {{
         color: black;
-    }
-
-    /* Label for radio ("Select Theme Mode:") */
-    [data-testid="stSidebar"] .css-1d391kg {
+    }}
+    [data-testid="stSidebar"] h2 {{
         color: orange;
         font-weight: bold;
-    }
-
-    /* Radio options ("Light", "Dark") */
-    [data-testid="stSidebar"] .stRadio > div > label {
-        color: yellow;
+    }}
+    [data-testid="stSidebar"] label {{
+        color: orange;
         font-weight: bold;
-    }
+    }}
+    [data-testid="stSidebar"] .stRadio div {{
+        color: black;
+        font-weight: bold;
+    }}
     </style>
 """, unsafe_allow_html=True)
 
