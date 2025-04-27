@@ -63,9 +63,11 @@
 
 ## App
 
-| Light Mode | Dark Mode |
-| ---------- | --------- |
-|            |           |
+# Light Mode 
+
+https://github.com/svn-code/used-car-price-predictor/blob/6aa0aec768a4ca1d34b388d11a1ed588f8cd58f5/light_mode.png     
+
+# Dark mode
 
 ##  Folder Structure
 
