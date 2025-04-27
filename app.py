@@ -11,121 +11,13 @@ car_image = Image.open('car.png')
 
 # ------------- Styling Functions -------------
 def get_color(light_color, dark_color):
-    return light_color if st.session_state.get("mode", "Light") == "Light" else dark_color
+    return light_color if st.session_state["mode"] == "Light" else dark_color
 
 # ------------- Sidebar for Mode Selection -------------
 if "mode" not in st.session_state:
     st.session_state["mode"] = "Light"
     
-def apply_theme(mode):
-    if mode == "Light":
-        st.markdown(f"""
-            <style>
-            /* Light Mode Styling */
-            body {{
-                background-color: #f0f0f0;
-                color: black;
-            }}
-            [data-testid="stSidebar"] {{
-                background-color: #ffffff;
-                padding: 20px;
-            }}
-            [data-testid="stSidebar"] > div {{
-                color: black;
-            }}
-            [data-testid="stSidebar"] h2 {{
-                color: orange;
-                font-weight: bold;
-            }}
-            [data-testid="stSidebar"] label {{
-                color: orange;
-                font-weight: bold;
-            }}
-            [data-testid="stSidebar"] .stRadio div {{
-                color: black;
-                font-weight: bold;
-            }}
-            </style>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown(f"""
-            <style>
-            /* Dark Mode Styling */
-            body {{
-                background-color: #f0f0f0;
-                color: black;
-            }}
-            [data-testid="stSidebar"] {{
-                background-color: #ffffff;
-                padding: 20px;
-            }}
-            [data-testid="stSidebar"] > div {{
-                color: black;
-            }}
-            [data-testid="stSidebar"] h2 {{
-                color: orange;
-                font-weight: bold;
-            }}
-            [data-testid="stSidebar"] label {{
-                color: orange;
-                font-weight: bold;
-            }}
-            [data-testid="stSidebar"] .stRadio div {{
-                color: black;
-                font-weight: bold;
-            }}
-            </style>
-        """, unsafe_allow_html=True)
-            
-    
-
-
-# ------------- Global CSS for Styling -------------
-def apply_global_css():
-    light_background = "#F5F5F5"
-    dark_background = "#1E1E1E"
-    light_text = "#333333"
-    dark_text = "#FFFFFF"
-    light_title = "#FF9933"
-    dark_title = "#FF5733"
-    light_headings = "#222222"
-    dark_headings = "#FFEB3B"
-    
-    page_background = light_background if st.session_state.get("mode",
-                                "Light") == "Light" else dark_background
-    title_color = light_title if st.session_state.get("mode",
-                               "Light") == "Light" else dark_title
-    text_color = light_text if st.session_state.get("mode",
-                              "Light") == "Light" else dark_text
-    heading_color = light_headings if st.session_state.get("mode",
-                                   "Light") == "Light" else dark_headings
-    
-    st.markdown(f"""
-    <style>
-        .stApp {{ background-color: {page_background}; }}
-        h1, h2, h3, h4 {{ color: {title_color}; }}
-        h1 {{ font-size: 3em; }}
-        h2 {{ font-size: 2em; }}
-        h3 {{ font-size: 1.5em; }}
-        h4 {{ font-size: 1.2em; }}
-        p, li, span, label {{ color: {text_color}; font-size: 1.2em; }}
-        .stSidebar {{ background-color: #FFFFFF; }}
-        .stButton {{ background-color: {title_color}; color: {text_color}; }}
-        .stButton:hover {{ background-color: #FF5722; }}
-        .stSelectbox, .stRadio, .stSlider {{ color: {text_color}; }}
-        .stNumberInput input {{ color: {text_color}; }}
-        .stImage img {{ border-radius: 15px; border: 2px solid {light_title}; }}
-        .stAlert {{ background-color: #FFEB3B; color: {dark_text}; }}
-    </style>
-    """, unsafe_allow_html=True)
-
-# Apply custom global CSS (after mode init)
-apply_theme(st.session_state["mode"])
-apply_global_css()
-
-# Sidebar Content
 st.sidebar.title("Theme Settings")
-# Sidebar radio button
 mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
 st.session_state["mode"] = mode
 
@@ -135,7 +27,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    f"<h4 style='text-align:center; color:{get_color('black','white')}; font-weight:normal;'>Just enter the car details, you will get car price</h4>",
+    f"<h4 style='text-align:center; color:{get_color('black', 'white')}; font-weight:normal;'>Just enter the car details, you will get car price</h4>",
     unsafe_allow_html=True
 )
 st.markdown("---")
@@ -155,65 +47,65 @@ with right_column:
     )
 
     # 1. Location
-    st.markdown(f"<h4 style='color:{get_color('black','white')};'>Location</h4>", unsafe_allow_html=True)
-    location = st.selectbox('Select Location', sorted(df['Location'].unique()))
+    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Location</h4>", unsafe_allow_html=True)
+    location = st.select_slider('Select Location', sorted(df['Location'].unique()))
 
     # 2. Brand
-    st.markdown(f"<h4 style='color:{get_color('black','white')};'>Car Brand</h4>", unsafe_allow_html=True)
-    brand = st.selectbox('Select Car Brand', sorted(df['Brand'].unique()))
+    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Brand</h4>", unsafe_allow_html=True)
+    brand = st.select_slider('Select Car Brand', sorted(df['Brand'].unique()))
 
     # 3. Model
-    st.markdown(f"<h4 style='color:{get_color('black','white')};'>Car Model</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Model</h4>", unsafe_allow_html=True)
     model_options = df[df['Brand'] == brand]['Model'].unique()
-    car_model = st.selectbox('Select Car Model', sorted(model_options)) if len(model_options) > 0 else None
+    car_model = st.select_slider('Select Car Model', sorted(model_options)) if len(model_options) > 0 else None
 
     # 4. Car Type
-    st.markdown(f"<h4 style='color:{get_color('black','white')};'>Car Type</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Type</h4>", unsafe_allow_html=True)
     type_options = df[(df['Brand'] == brand) & (df['Model'] == car_model)]['Car Type'].unique()
-    car_type = st.selectbox('Select Car Type', sorted(type_options)) if len(type_options) > 0 else None
+    car_type = st.select_slider('Select Car Type', sorted(type_options)) if len(type_options) > 0 else None
 
     # 5. Car Color
-    st.markdown(f"<h4 style='color:{get_color('black','white')};'>Car Color</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Color</h4>", unsafe_allow_html=True)
     color_options = df[(df['Brand'] == brand) & (df['Model'] == car_model) & (df['Car Type'] == car_type)]['Color'].unique()
-    car_color = st.selectbox('Select Car Color', sorted(color_options)) if len(color_options) > 0 else None
+    car_color = st.select_slider('Select Car Color', sorted(color_options)) if len(color_options) > 0 else None
 
     # Split Columns
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown(f"<h4 style='color:{get_color('black','white')};'>Odometer Reading (km)</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Odometer Reading (km)</h4>", unsafe_allow_html=True)
         kms_driven = st.number_input('Enter KMs Driven', min_value=5000, max_value=200000, step=1000)
 
-        st.markdown(f"<h4 style='color:{get_color('black','white')};'>Number of Owners</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Number of Owners</h4>", unsafe_allow_html=True)
         owner = st.radio('Number of Owners', sorted(df['Number of Owners'].unique()))
 
     with col2:
-        st.markdown(f"<h4 style='color:{get_color('black','white')};'>Fuel Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Fuel Type</h4>", unsafe_allow_html=True)
         fuel_type = st.radio('Select Fuel Type', sorted(df['Fuel Type'].unique()))
 
-        st.markdown(f"<h4 style='color:{get_color('black','white')};'>Transmission Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Transmission Type</h4>", unsafe_allow_html=True)
         transmission = st.radio('Select Transmission', sorted(df['Transmission Type'].unique()))
 
     # Manufactured Year
-    st.markdown(f"<h4 style='color:{get_color('black','white')};'>Manufactured Year</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Manufactured Year</h4>", unsafe_allow_html=True)
     year = st.slider('Select Manufactured Year', 2000, 2024, step=1)
 
     # Engine Capacity
-    st.markdown(f"<h4 style='color:{get_color('black','white')};'>Engine Capacity (Litres)</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Engine Capacity (Litres)</h4>", unsafe_allow_html=True)
     engine_capacity = st.slider('Select Engine Capacity', 1.0, 5.0, step=0.1)
 
     # Split again
     col3, col4 = st.columns(2)
 
     with col3:
-        st.markdown(f"<h4 style='color:{get_color('black','white')};'>Previous Accidents</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Previous Accidents</h4>", unsafe_allow_html=True)
         accidents = st.radio('Accident History', sorted(df['Previous Accidents'].unique()))
 
-        st.markdown(f"<h4 style='color:{get_color('black','white')};'>Service History</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Service History</h4>", unsafe_allow_html=True)
         service = st.radio('Service History', sorted(df['Service History'].unique()))
 
     with col4:
-        st.markdown(f"<h4 style='color:{get_color('black','white')};'>Insurance Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Insurance Type</h4>", unsafe_allow_html=True)
         insurance = st.radio('Insurance Type', sorted(df['Insurance Type'].unique()))
 
 # ------------- Predict Button -------------
@@ -225,10 +117,14 @@ predict_btn = st.button("🚗 Predict Car Price 🚗")
 if predict_btn:
     if all([location, brand, car_model, car_type, car_color, kms_driven, owner, fuel_type, transmission, year, engine_capacity, accidents, service, insurance]):
         with st.spinner('Predicting the best price for you...'):
+            
+            # Prepare input DataFrame 
+            
             input_df = pd.DataFrame({
                 'Year': [year],
                 'Odometer Reading (km)': [kms_driven],
                 'Engine Capacity (L)': [engine_capacity],
+        
                 # Brands
                 'Brand_BMW': [1 if brand == 'BMW' else 0],
                 'Brand_Ford': [1 if brand == 'Ford' else 0],
@@ -314,12 +210,15 @@ if predict_btn:
                 
                 # Insurance Type
                 'Insurance Type_Third-Party': [1 if insurance == 'Third-Party' else 0]
-
-                
             })
+        
+            # Predict
             prediction = model.predict(input_df)
-            prediction = np.expm1(prediction).astype(float)
+            prediction=np.expm1(prediction).astype(float)
+	
             st.success(f"Predicted Car Price: ₹{prediction[0]:,.2f}")
+
     else:
-        st.warning("Please fill in all the details.")
+        st.error("❗ Please Enter All Car Details")
+
 st.markdown("</div>", unsafe_allow_html=True)
