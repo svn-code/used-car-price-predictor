@@ -25,6 +25,9 @@ st.sidebar.title("Theme Settings")
 mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
 st.session_state["mode"] = mode
 
+# Define button color based on theme
+button_color = get_color('yellow', 'blue')
+
 # ------------- Global CSS for Styling -------------
 def apply_global_css():
     light_background = "#F5F5F5"
@@ -55,7 +58,7 @@ def apply_global_css():
         h4 {{ font-size: 1.2em; }}
         p, li, span, label {{ color: {text_color}; font-size: 1.2em; }}
         .stSidebar {{ background-color: #FFFFFF; }}
-        .stButton {{ background-color: {title_color}; color: {text_color}; }}
+        .stButton {{ background-color: {button_color}; color: {text_color}; }}
         .stButton:hover {{ background-color: #FF5722; }}
         .stSelectbox, .stRadio, .stSlider {{ color: {text_color}; }}
         .stNumberInput input {{ color: {text_color}; }}
@@ -65,7 +68,6 @@ def apply_global_css():
     """, unsafe_allow_html=True)
 
 # Apply custom global CSS (after mode init)
-
 apply_global_css()
 
 # ------------- Main Heading -------------
