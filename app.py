@@ -53,15 +53,15 @@ def apply_theme(mode):
             <style>
             /* Dark Mode Styling */
             body {{
-                background-color: #2b2b2b;
-                color: orange;
+                background-color: #f0f0f0;
+                color: black;
             }}
             [data-testid="stSidebar"] {{
-                background-color: #333333;
+                background-color: #ffffff;
                 padding: 20px;
             }}
             [data-testid="stSidebar"] > div {{
-                color: orange;
+                color: black;
             }}
             [data-testid="stSidebar"] h2 {{
                 color: orange;
@@ -72,11 +72,12 @@ def apply_theme(mode):
                 font-weight: bold;
             }}
             [data-testid="stSidebar"] .stRadio div {{
-                color: orange;
+                color: black;
                 font-weight: bold;
             }}
             </style>
         """, unsafe_allow_html=True)
+            
     
 # Sidebar Content
 st.sidebar.title("Theme Settings")
