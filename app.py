@@ -112,7 +112,6 @@ def apply_global_css():
     </style>
     """, unsafe_allow_html=True)
 
-
 # Apply custom global CSS (after mode init)
 apply_theme(st.session_state["mode"])
 apply_global_css()
