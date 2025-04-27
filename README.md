@@ -65,11 +65,11 @@
 
   # Light Mode 
 
-  ![My Project Screenshot](images/Light mode.png)
+  ![My Project Screenshot](light_mode.png)
 
   # Dark Mode
 
-  ![My Project Screenshot](images/Dark mode.png)
+  ![My Project Screenshot](dark_mode.png)
 
 
 # Dark mode
