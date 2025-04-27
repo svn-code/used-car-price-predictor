@@ -54,7 +54,7 @@ def apply_theme(mode):
             /* Dark Mode Styling */
             body {{
                 background-color: #2b2b2b;
-                color: white;
+                color: orange;
             }}
             [data-testid="stSidebar"] {{
                 background-color: #333333;
