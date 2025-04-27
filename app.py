@@ -21,13 +21,59 @@ st.sidebar.title("Theme Settings")
 mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
 st.session_state["mode"] = mode
 
+# ------------- Apply Custom CSS -------------
+def apply_custom_css():
+    light_background = "#F5F5F5"
+    dark_background = "#1E1E1E"
+    light_text = "#333333"
+    dark_text = "#FFFFFF"
+    light_title = "#FF9933"
+    dark_title = "#FF5733"
+    light_headings = "#222222"
+    dark_headings = "#FFEB3B"
+    
+    page_background = light_background if st.session_state["mode"] == "Light" else dark_background
+    title_color = light_title if st.session_state["mode"] == "Light" else dark_title
+    text_color = light_text if st.session_state["mode"] == "Light" else dark_text
+    heading_color = light_headings if st.session_state["mode"] == "Light" else dark_headings
+    
+    st.markdown(f"""
+    <style>
+        .stApp {{
+            background-color: {page_background};
+        }}
+        h1 {{
+            color: {title_color};
+        }}
+        h2, h3, h4 {{
+            color: {heading_color};
+        }}
+        p, li {{
+            color: {text_color};
+        }}
+        .stSidebar {{
+            background-color: {light_background};
+        }}
+        .stButton {{
+            background-color: {title_color};
+            color: {text_color};
+        }}
+        .stButton:hover {{
+            background-color: #FF5722;
+        }}
+    </style>
+    """, unsafe_allow_html=True)
+
+# Apply the custom CSS
+apply_custom_css()
+
 # ------------- Main Heading -------------
 st.markdown(
-    f"<h1 style='text-align:center; color:{get_color('#FF9933', 'red')};'>Used Car Price Predictor in Indian Cities</h1>",
+    f"<h1 style='text-align:center;'>Used Car Price Predictor in Indian Cities</h1>",
     unsafe_allow_html=True
 )
 st.markdown(
-    f"<h4 style='text-align:center; color:{get_color('black','red' )}; font-weight:normal;'>Just enter the car details, you will get car price</h4>",
+    f"<h4 style='text-align:center;'>Just enter the car details, you will get car price</h4>",
     unsafe_allow_html=True
 )
 st.markdown("---")
@@ -42,30 +88,30 @@ with left_column:
 # --- Right Side ---
 with right_column:
     st.markdown(
-        f"<h2 style='text-align:center; color:{get_color('#FF9933', 'red')};'>Enter Car Details</h2>",
+        f"<h2 style='text-align:center;'>Enter Car Details</h2>",
         unsafe_allow_html=True
     )
 
     # 1. Location
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Location</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4>Location</h4>", unsafe_allow_html=True)
     location = st.selectbox('Select Location', sorted(df['Location'].unique()))
 
     # 2. Brand
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Brand</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4>Car Brand</h4>", unsafe_allow_html=True)
     brand = st.selectbox('Select Car Brand', sorted(df['Brand'].unique()))
 
     # 3. Model
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Model</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4>Car Model</h4>", unsafe_allow_html=True)
     model_options = df[df['Brand'] == brand]['Model'].unique()
     car_model = st.selectbox('Select Car Model', sorted(model_options)) if len(model_options) > 0 else None
 
     # 4. Car Type
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Type</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4>Car Type</h4>", unsafe_allow_html=True)
     type_options = df[(df['Brand'] == brand) & (df['Model'] == car_model)]['Car Type'].unique()
     car_type = st.selectbox('Select Car Type', sorted(type_options)) if len(type_options) > 0 else None
 
     # 5. Car Color
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Car Color</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4>Car Color</h4>", unsafe_allow_html=True)
     color_options = df[(df['Brand'] == brand) & (df['Model'] == car_model) & (df['Car Type'] == car_type)]['Color'].unique()
     car_color = st.selectbox('Select Car Color', sorted(color_options)) if len(color_options) > 0 else None
 
@@ -73,39 +119,39 @@ with right_column:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Odometer Reading (km)</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4>Odometer Reading (km)</h4>", unsafe_allow_html=True)
         kms_driven = st.number_input('Enter KMs Driven', min_value=5000, max_value=200000, step=1000)
 
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Number of Owners</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4>Number of Owners</h4>", unsafe_allow_html=True)
         owner = st.radio('Number of Owners', sorted(df['Number of Owners'].unique()))
 
     with col2:
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Fuel Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4>Fuel Type</h4>", unsafe_allow_html=True)
         fuel_type = st.radio('Select Fuel Type', sorted(df['Fuel Type'].unique()))
 
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Transmission Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4>Transmission Type</h4>", unsafe_allow_html=True)
         transmission = st.radio('Select Transmission', sorted(df['Transmission Type'].unique()))
 
     # Manufactured Year
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Manufactured Year</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4>Manufactured Year</h4>", unsafe_allow_html=True)
     year = st.slider('Select Manufactured Year', 2000, 2024, step=1)
 
     # Engine Capacity
-    st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Engine Capacity (Litres)</h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4>Engine Capacity (Litres)</h4>", unsafe_allow_html=True)
     engine_capacity = st.slider('Select Engine Capacity', 1.0, 5.0, step=0.1)
 
     # Split again
     col3, col4 = st.columns(2)
 
     with col3:
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Previous Accidents</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4>Previous Accidents</h4>", unsafe_allow_html=True)
         accidents = st.radio('Accident History', sorted(df['Previous Accidents'].unique()))
 
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Service History</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4>Service History</h4>", unsafe_allow_html=True)
         service = st.radio('Service History', sorted(df['Service History'].unique()))
 
     with col4:
-        st.markdown(f"<h4 style='color:{get_color('black', 'white')};'>Insurance Type</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4>Insurance Type</h4>", unsafe_allow_html=True)
         insurance = st.radio('Insurance Type', sorted(df['Insurance Type'].unique()))
 
 # ------------- Predict Button -------------
@@ -216,8 +262,8 @@ if predict_btn:
             prediction = model.predict(input_df)
             prediction=np.expm1(prediction).astype(float)
             st.success(f"Predicted Car Price: ₹{prediction[0]:,.2f}")
-
+        
+        # Provide a "Try Again" button
+        st.markdown("<div style='text-align:center;'><button onclick='window.location.reload();'>Try Again</button></div>", unsafe_allow_html=True)
     else:
-        st.error("❗ Please Enter All Car Details")
-
-st.markdown("</div>", unsafe_allow_html=True)
+        st.warning("Please fill in all the details!")
