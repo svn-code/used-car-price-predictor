@@ -10,6 +10,22 @@ model = joblib.load('final_xgboost_model.pkl')
 df = pd.read_csv('cleaned_car_dataset.csv')
 car_image = Image.open('car.png')
 
+# ------------- Styling Functions -------------
+def get_color(light_color, dark_color):
+    return light_color if st.session_state.get("mode", "Light") == "Light" else dark_color
+
+# ------------- Sidebar for Mode Selection -------------
+if "mode" not in st.session_state:
+    st.session_state["mode"] = "Light"
+
+# Sidebar Content
+st.sidebar.title("Theme Settings")
+# Sidebar radio button
+mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
+st.session_state["mode"] = mode
+    
+
+
 
 
 # ------------- Global CSS for Styling -------------
