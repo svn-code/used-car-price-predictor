@@ -102,7 +102,7 @@ left_column, right_column = st.columns(2)
 # --- Left Side ---
 with left_column:
     
-    st.image(car_image, caption="Your Dream Car Awaits!",  use_container_width=True)
+    st.image(car_image, caption="Your Dream Car Awaits!",use_container_width=True)
 
 
 # --- Right Side ---
