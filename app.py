@@ -78,11 +78,7 @@ def apply_theme(mode):
         """, unsafe_allow_html=True)
             
     
-# Sidebar Content
-st.sidebar.title("Theme Settings")
-# Sidebar radio button
-mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
-st.session_state["mode"] = mode
+
 
 # ------------- Global CSS for Styling -------------
 def apply_global_css():
@@ -127,6 +123,11 @@ def apply_global_css():
 apply_theme(mode)
 apply_global_css()
 
+# Sidebar Content
+st.sidebar.title("Theme Settings")
+# Sidebar radio button
+mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
+st.session_state["mode"] = mode
 
 # ------------- Main Heading -------------
 st.markdown(
