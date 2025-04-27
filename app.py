@@ -16,10 +16,68 @@ def get_color(light_color, dark_color):
 # ------------- Sidebar for Mode Selection -------------
 if "mode" not in st.session_state:
     st.session_state["mode"] = "Light"
-    
-st.sidebar.title("Theme Settings")
-mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
-st.session_state["mode"] = mode
+
+def apply_theme(mode):
+    if mode == "Light":
+        st.markdown(f"""
+            <style>
+            /* Light Mode Styling */
+            body {{
+                background-color: #f0f0f0;
+                color: black;
+            }}
+            [data-testid="stSidebar"] {{
+                background-color: #ffffff;
+                padding: 20px;
+            }}
+            [data-testid="stSidebar"] > div {{
+                color: black;
+            }}
+            [data-testid="stSidebar"] h2 {{
+                color: orange;
+                font-weight: bold;
+            }}
+            [data-testid="stSidebar"] label {{
+                color: orange;
+                font-weight: bold;
+            }}
+            [data-testid="stSidebar"] .stRadio div {{
+                color: black;
+                font-weight: bold;
+            }}
+            </style>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown(f"""
+            <style>
+            /* Dark Mode Styling */
+            body {{
+                background-color: #f0f0f0;
+                color: black;
+            }}
+            [data-testid="stSidebar"] {{
+                background-color: #ffffff;
+                padding: 20px;
+            }}
+            [data-testid="stSidebar"] > div {{
+                color: black;
+            }}
+            [data-testid="stSidebar"] h2 {{
+                color: orange;
+                font-weight: bold;
+            }}
+            [data-testid="stSidebar"] label {{
+                color: orange;
+                font-weight: bold;
+            }}
+            [data-testid="stSidebar"] .stRadio div {{
+                color: black;
+                font-weight: bold;
+            }}
+            </style>
+        """, unsafe_allow_html=True)
+
+
 
 # ------------- Global CSS for Styling -------------
 def apply_global_css():
@@ -61,8 +119,13 @@ def apply_global_css():
     """, unsafe_allow_html=True)
 
 # Apply custom global CSS (after mode init)
-
+apply_theme(st.session_state["mode"])
 apply_global_css()
+
+    
+st.sidebar.title("Theme Settings")
+mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
+st.session_state["mode"] = mode
 
 
 # ------------- Main Heading -------------
