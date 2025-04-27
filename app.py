@@ -18,6 +18,25 @@ def get_color(light_color, dark_color):
 if "mode" not in st.session_state:
     st.session_state["mode"] = "Light"
 st.sidebar.title("Theme Settings")
+st.markdown("""
+    <style>
+    /* Label styling */
+    .css-1v0mbdj p {
+        color: black !important;
+        font-weight: bold;
+    }
+
+    /* Radio options styling */
+    .stRadio > div > label {
+        color: black !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Sidebar radio button
+
 mode = st.sidebar.radio("Select Theme Mode:", ["Light", "Dark"])
 st.session_state["mode"] = mode
 
