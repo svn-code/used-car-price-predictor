@@ -18,67 +18,7 @@ def get_color(light_color, dark_color):
 if "mode" not in st.session_state:
     st.session_state["mode"] = "Light"
     
-def apply_theme(mode):
-    if mode == "Light":
-        st.markdown(f"""
-            <style>
-            /* Light Mode Styling */
-            body {{
-                background-color: #f0f0f0;
-                color: black;
-            }}
-            [data-testid="stSidebar"] {{
-                background-color: #ffffff;
-                padding: 20px;
-            }}
-            [data-testid="stSidebar"] > div {{
-                color: black;
-            }}
-            [data-testid="stSidebar"] h2 {{
-                color: orange;
-                font-weight: bold;
-            }}
-            [data-testid="stSidebar"] label {{
-                color: orange;
-                font-weight: bold;
-            }}
-            [data-testid="stSidebar"] .stRadio div {{
-                color: black;
-                font-weight: bold;
-            }}
-            </style>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown(f"""
-            <style>
-            /* Dark Mode Styling */
-            body {{
-                background-color: #f0f0f0;
-                color: black;
-            }}
-            [data-testid="stSidebar"] {{
-                background-color: #ffffff;
-                padding: 20px;
-            }}
-            [data-testid="stSidebar"] > div {{
-                color: black;
-            }}
-            [data-testid="stSidebar"] h2 {{
-                color: orange;
-                font-weight: bold;
-            }}
-            [data-testid="stSidebar"] label {{
-                color: orange;
-                font-weight: bold;
-            }}
-            [data-testid="stSidebar"] .stRadio div {{
-                color: black;
-                font-weight: bold;
-            }}
-            </style>
-        """, unsafe_allow_html=True)
-            
-    
+
 # Sidebar Content
 st.sidebar.title("Theme Settings")
 # Sidebar radio button
@@ -125,7 +65,7 @@ def apply_global_css():
     """, unsafe_allow_html=True)
 
 # Apply custom global CSS (after mode init)
-apply_theme(mode)
+
 apply_global_css()
 
 # ------------- Main Heading -------------
