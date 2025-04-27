@@ -78,6 +78,7 @@ def apply_theme(mode):
         """, unsafe_allow_html=True)
 
 # ------------- Global CSS for Styling -------------
+# ------------- Global CSS for Styling -------------
 def apply_global_css():
     light_background = "#F5F5F5"
     dark_background = "#1E1E1E"
@@ -88,10 +89,14 @@ def apply_global_css():
     light_headings = "#222222"
     dark_headings = "#FFEB3B"
     
-    page_background = get_color(light_background, dark_background)
-    title_color = get_color(light_title, dark_title)
-    text_color = get_color(light_text, dark_text)
-    heading_color = get_color(light_headings, dark_headings)
+    page_background = light_background if st.session_state.get("mode",
+                                "Light") == "Light" else dark_background
+    title_color = light_title if st.session_state.get("mode",
+                               "Light") == "Light" else dark_title
+    text_color = light_text if st.session_state.get("mode",
+                              "Light") == "Light" else dark_text
+    heading_color = light_headings if st.session_state.get("mode",
+                                   "Light") == "Light" else dark_headings
     
     st.markdown(f"""
     <style>
@@ -102,15 +107,17 @@ def apply_global_css():
         h3 {{ font-size: 1.5em; }}
         h4 {{ font-size: 1.2em; }}
         p, li, span, label {{ color: {text_color}; font-size: 1.2em; }}
-        .stSidebar {{ background-color: {page_background}; }}
+        .stSidebar {{ background-color: #FFFFFF; }}
         .stButton {{ background-color: {title_color}; color: {text_color}; }}
-        .stButton:hover {{ background-color: {light_title}; }}
+        .stButton:hover {{ background-color: #FF5722; }}
         .stSelectbox, .stRadio, .stSlider {{ color: {text_color}; }}
         .stNumberInput input {{ color: {text_color}; }}
-        .stImage img {{ border-radius: 15px; border: 2px solid {title_color}; }}
+        .stImage img {{ border-radius: 15px; border: 2px solid {light_title}; }}
         .stAlert {{ background-color: #FFEB3B; color: {dark_text}; }}
     </style>
     """, unsafe_allow_html=True)
+
+
 
 # Apply custom global CSS (after mode init)
 apply_theme(st.session_state["mode"])
