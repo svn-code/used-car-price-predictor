@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 from PIL import Image
+import numpy as np
 
 # Load model and data
 model = joblib.load('final_xgboost_model.pkl')
@@ -26,7 +27,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    f"<h4 style='text-align:center; color:{get_color('black', 'white')}; font-weight:normal;'>Just enter the car details, you will get car price</h4>",
+    f"<h4 style='text-align:center; color:{get_color('black', )}; font-weight:normal;'>Just enter the car details, you will get car price</h4>",
     unsafe_allow_html=True
 )
 st.markdown("---")
@@ -213,6 +214,7 @@ if predict_btn:
         
             # Predict
             prediction = model.predict(input_df)
+            prediction=np.expm1(prediction).astype(float)
             st.success(f"Predicted Car Price: ₹{prediction[0]:,.2f}")
 
     else:
