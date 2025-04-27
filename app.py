@@ -22,13 +22,13 @@ st.markdown("""
     <style>
     /* Label styling */
     .css-1v0mbdj p {
-        color: black !important;
+        color: yellow !important;
         font-weight: bold;
     }
 
     /* Radio options styling */
     .stRadio > div > label {
-        color: black !important;
+        color: yellow !important;
     }
     </style>
     """,
