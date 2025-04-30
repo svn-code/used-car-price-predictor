@@ -45,7 +45,36 @@
 
 
 
+## How to Run Locally
 
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/your-username/used-car-price-prediction.git
+   cd used-car-price-prediction
+   ```
+
+2. **(Optional) Create and Activate Virtual Environment**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # for Linux/Mac
+   venv\Scripts\activate     # for Windows
+   ```
+
+3. **Install the Dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the Streamlit App**
+
+   ```bash
+   streamlit run app.py
+   ```
+
+---
 
 
 ## Author
